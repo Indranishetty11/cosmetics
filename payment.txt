@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+        }
+        header {
+            background-color: #e91e63;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .container {
+            padding: 40px;
+            max-width: 600px;
+            margin: auto;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: bold;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            font-size: 1em;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        .form-group button {
+            width: 100%;
+            padding: 15px;
+            background-color: #e91e63;
+            color: white;
+            font-size: 1.1em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .form-group button:hover {
+            background-color: #d81b60;
+        }
+        .back-btn {
+            margin-top: 20px;
+            display: block;
+            text-align: center;
+            text-decoration: none;
+            color: #e91e63;
+            font-size: 1.1em;
+        }
+        .back-btn:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Payment Information</h1>
+    </header>
+    
+    <div class="container">
+        <h2>Please enter your payment details</h2>
+        
+        <div class="form-group">
+            <label for="cardNumber">Card Number</label>
+            <input type="text" id="cardNumber" placeholder="Enter your card number" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="expiryDate">Expiry Date</label>
+            <input type="text" id="expiryDate" placeholder="MM/YY" required>
+        </div>
+
+        <div class="form-group">
+            <label for="cvv">CVV</label>
+            <input type="text" id="cvv" placeholder="Enter CVV" required>
+        </div>
+
+        <div class="form-group">
+            <button id="paymentBtn">Pay Now</button>
+        </div>
+
+        <a href="index.html" class="back-btn">Back to Shopping</a>
+    </div>
+
+    <script>
+        // Payment button functionality
+        document.getElementById("paymentBtn").onclick = function() {
+            alert("Payment Successful! Thank you for your order.");
+            // Redirect to confirmation or homepage after successful payment
+            window.location.href = "index.html";  // Redirect to homepage or confirmation page
+        };
+    </script>
+</body>
+</html>

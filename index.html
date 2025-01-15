@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cosmetics E-Commerce</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Styles remain the same as before */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #f8bbd0;
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: #e91e63;
+            padding: 10px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+        }
+        .product {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin: 15px;
+            padding: 15px;
+            width: 250px;
+            text-align: center;
+        }
+        .product img {
+            max-width: 100%;
+            border-radius: 5px;
+        }
+        .product h3 {
+            color: #333;
+            font-size: 1.2em;
+        }
+        .product p {
+            color: #777;
+        }
+        .product button {
+            background-color: #e91e63;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .product button:hover {
+            background-color: #d81b60;
+        }
+        footer {
+            background-color: #f8bbd0;
+            text-align: center;
+            padding: 10px;
+            margin-top: 20px;
+        }
+
+        .filter-container,
+        .search-container {
+            margin: 20px;
+            text-align: center;
+        }
+
+        .filter-container select,
+        .search-container input {
+            padding: 10px;
+            font-size: 1em;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+
+        .search-container button {
+            padding: 10px 15px;
+            background-color: #e91e63;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .search-container button:hover {
+            background-color: #d81b60;
+        }
+
+        @media only screen and (max-width: 600px) {
+            .container {
+                flex-direction: column;
+                align-items: center;
+            }
+            .product {
+                width: 100%;
+                margin: 10px 0;
+            }
+            .filter-container,
+            .search-container {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+        }
+
+        .product:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            transition: 0.3s;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        #cartDetails {
+            margin-top: 20px;
+        }
+
+        .cart-item {
+            margin-bottom: 15px;
+        }
+
+        .cart-item p {
+            margin: 5px 0;
+        }
+
+        #checkoutBtn {
+            background-color: #e91e63;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+
+        #checkoutBtn:hover {
+            background-color: #d81b60;
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Cosmetics Store</h1>
+        <p>Your one-stop shop for beauty products</p>
+    </header>
+
+    <nav>
+        <a href="#">Home</a>
+        <a href="#">Shop</a>
+        <a href="#">About Us</a>
+        <a href="#">Contact</a>
+    </nav>
+
+    <!-- Filter Section -->
+    <div class="filter-container">
+        <label for="productFilter">Filter by Price: </label>
+        <select id="productFilter">
+            <option value="all">All Products</option>
+            <option value="low">Low to High</option>
+            <option value="high">High to Low</option>
+        </select>
+    </div>
+
+    <!-- Search Section -->
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Search products..." />
+        <button id="searchButton">Search</button>
+    </div>
+
+    <!-- Category Filter Section -->
+    <div class="filter-container">
+        <label for="categoryFilter">Filter by Category: </label>
+        <select id="categoryFilter">
+            <option value="all">All Products</option>
+            <option value="makeup">Makeup</option>
+            <option value="skincare">Skincare</option>
+            <option value="haircare">Haircare</option>
+        </select>
+    </div>
+
+    <div class="container" id="productContainer">
+        <div class="product" data-price="12.99" data-category="makeup">
+            <img src="C:\Users\SRI\OneDrive\Desktop\cosmetics\images\lipstick.webp" alt="Lipstick">
+            <h3>Red Lipstick</h3>
+            <p>Price: $12.99</p>
+            <div class="product-rating">
+                <span class="star" data-rating="1">⭐</span>
+                <span class="star" data-rating="2">⭐</span>
+                <span class="star" data-rating="3">⭐</span>
+                <span class="star" data-rating="4">⭐</span>
+                <span class="star" data-rating="5">⭐</span>
+            </div>
+            <button class="addToCartButton">Add to Cart</button>
+        </div>
+
+        <div class="product" data-price="18.99" data-category="skincare">
+            <img src="C:\Users\SRI\OneDrive\Desktop\cosmetics\images\foundation.avif" alt="Foundation">
+            <h3>Liquid Foundation</h3>
+            <p>Price: $18.99</p>
+            <div class="product-rating">
+                <span class="star" data-rating="1">⭐</span>
+                <span class="star" data-rating="2">⭐</span>
+                <span class="star" data-rating="3">⭐</span>
+                <span class="star" data-rating="4">⭐</span>
+                <span class="star" data-rating="5">⭐</span>
+            </div>
+            <button class="addToCartButton">Add to Cart</button>
+        </div>
+
+        <div class="product" data-price="24.99" data-category="makeup">
+            <img src="C:\Users\SRI\OneDrive\Desktop\cosmetics\images\eyeshadow.webp" alt="Eyeshadow">
+            <h3>Eyeshadow Palette</h3>
+            <p>Price: $24.99</p>
+            <div class="product-rating">
+                <span class="star" data-rating="1">⭐</span>
+                <span class="star" data-rating="2">⭐</span>
+                <span class="star" data-rating="3">⭐</span>
+                <span class="star" data-rating="4">⭐</span>
+                <span class="star" data-rating="5">⭐</span>
+            </div>
+            <button class="addToCartButton">Add to Cart</button>
+        </div>
+
+        <div class="product" data-price="15.99" data-category="nailcare">
+            <img src="C:\Users\SRI\OneDrive\Desktop\cosmetics\images\nailpolish.webp" alt="Nail Polish">
+            <h3>Nail Polish Set</h3>
+            <p>Price: $15.99</p>
+            <div class="product-rating">
+                <span class="star" data-rating="1">⭐</span>
+                <span class="star" data-rating="2">⭐</span>
+                <span class="star" data-rating="3">⭐</span>
+                <span class="star" data-rating="4">⭐</span>
+                <span class="star" data-rating="5">⭐</span>
+            </div>
+            <button class="addToCartButton">Add to Cart</button>
+        </div>
+    </div>
+
+    <!-- Cart Button -->
+    <div class="cart-container">
+        <button id="viewCartBtn">View Cart (0)</button>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Cosmetics Store. All rights reserved.</p>
+    </footer>
+
+    <!-- Cart Modal -->
+    <div id="cartModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Your Cart</h2>
+            <div id="cartDetails">
+                <!-- Cart items will be displayed here -->
+            </div>
+            <p><strong>Total: $<span id="totalPrice">0.00</span></strong></p>
+            <button id="checkoutBtn">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <script>
+        var cart = [];
+        var totalPrice = 0;
+
+        // Function to update cart count and total price
+        function updateCart() {
+            var cartCount = cart.length;
+            document.getElementById("viewCartBtn").textContent = `View Cart (${cartCount})`;
+
+            var cartDetails = document.getElementById("cartDetails");
+            cartDetails.innerHTML = "";
+
+            cart.forEach(function(product) {
+                var cartItem = document.createElement("div");
+                cartItem.classList.add("cart-item");
+                cartItem.innerHTML = `<p>${product.name} - $${product.price}</p>`;
+                cartDetails.appendChild(cartItem);
+            });
+
+            document.getElementById("totalPrice").textContent = totalPrice.toFixed(2);
+        }
+
+        // Add to cart functionality
+        document.querySelectorAll('.addToCartButton').forEach(function(button) {
+            button.addEventListener('click', function() {
+                var productElement = button.parentElement;
+                var productName = productElement.querySelector('h3').textContent;
+                var productPrice = parseFloat(productElement.querySelector('p').textContent.replace('Price: $', ''));
+
+                cart.push({ name: productName, price: productPrice });
+                totalPrice += productPrice;
+
+                updateCart();
+            });
+        });
+
+        // View Cart Modal functionality
+        var modal = document.getElementById("cartModal");
+        var viewCartButton = document.getElementById("viewCartBtn");
+        var closeButton = document.querySelector(".close");
+
+        viewCartButton.onclick = function() {
+            modal.style.display = "block";
+        };
+
+        closeButton.onclick = function() {
+            modal.style.display = "none";
+        };
+
+        window.onclick = function(event) {
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        };
+
+        // Checkout button functionality
+        document.getElementById("checkoutBtn").onclick = function() {
+            if (cart.length > 0) {
+                alert("Proceeding to checkout...\nTotal: $" + totalPrice.toFixed(2));
+                // You can add more logic for checkout, like redirecting to payment page
+                cart = []; // Empty the cart after checkout
+                totalPrice = 0;
+                updateCart();
+                modal.style.display = "none"; // Close modal after checkout
+            } else {
+                alert("Your cart is empty. Add items to the cart before proceeding.");
+            }
+        };
+    </script>
+    <!-- Existing code remains the same -->
+    <script>
+        // Checkout button functionality with redirection to payment page
+        document.getElementById("checkoutBtn").onclick = function() {
+            if (cart.length > 0) {
+                // Redirect to payment page
+                window.location.href = "payment.html";  // Redirect to payment page
+            } else {
+                alert("Your cart is empty. Add items to the cart before proceeding.");
+            }
+        };
+    </script>
+
+</body>
+</html>
